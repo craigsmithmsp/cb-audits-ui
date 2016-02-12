@@ -1,8 +1,8 @@
 package org.caringbridge.services.reference;
 
+import org.caringbridge.common.services.annotations.EnableCorrelationFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -14,12 +14,12 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("org.caringbridge.services.reference")
-@EnableConfigurationProperties
+@EnableCorrelationFilter
 public class CbReferenceApplication {
 	
 	/**
-	 * Main method to run the Spring Boot Application
-	 * @param args
+	 * Main method to run the Spring Boot Application.
+	 * @param args arguments used when running on command line.
 	 */
 	public static void main(final String[] args) {
 		SpringApplication.run(CbReferenceApplication.class, args);

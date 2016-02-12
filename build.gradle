@@ -55,7 +55,7 @@ dependencies {
 	compile('com.mangofactory:swagger-springmvc:1.0.2')
 	
 	//CB common library
-	compile(group: 'org.caringbridge', name: 'cb-services-common', version: '1.0.0-20160210.203001-7')
+	compile(group: 'org.caringbridge', name: 'cb-services-common', version: '1.+')
 
 
 	//Test dependencies
