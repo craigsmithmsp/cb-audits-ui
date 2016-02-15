@@ -1,1 +1,26 @@
-server.port=11000
+app:
+  name: references
+  
+spring:
+  profiles:
+    active: dev
+    
+---
+spring:
+  profiles: dev
+
+server:
+  port: 11000
+
+---
+spring:
+  profiles: qa
+  
+server:
+  port: 11000
+  undertow:
+    accesslog:
+      dir: /var/log/microservices/${app.name}
+      enabled: true
+      pattern: '%h %l %u %t "%r" %s %b %{i,X-Request-Id} %D'
+ 

@@ -1,6 +1,7 @@
 package org.caringbridge.services.reference;
 
 import org.caringbridge.common.services.annotations.EnableCorrelationFilter;
+import org.caringbridge.common.services.annotations.EnableTrackRequestTime;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan("org.caringbridge.services.reference")
 @EnableCorrelationFilter
+@EnableTrackRequestTime
 public class CbReferenceApplication {
 	
 	/**
