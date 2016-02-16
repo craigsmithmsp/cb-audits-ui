@@ -6,6 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 /**
  * Main class to run the application.
  * 
@@ -17,6 +19,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("org.caringbridge.services.reference")
 @EnableCorrelationFilter
 @EnableTrackRequestTime
+@EnableSwagger2
 public class CbApplication {
 	
 	/**

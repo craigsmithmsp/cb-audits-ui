@@ -1,22 +1,15 @@
 package org.caringbridge.services.reference.controllers;
 
-import java.util.AbstractMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.AbstractMap.SimpleEntry;
-
-import org.apache.commons.collections.KeyValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.config.ConstructorArgumentValues.ValueHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
-import com.wordnik.swagger.annotations.ApiResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
 
 /**
  * Controller for handling the request by mapping url.
@@ -25,7 +18,7 @@ import com.wordnik.swagger.annotations.ApiResponse;
  *
  */
 @RestController
-@Api(basePath = "/ping", description = "A Ping controller just to check whether the application works", value = "ping")
+@Api(basePath = "/ping", description = "The ping resource represents just a success or failure heartbeat.", value = "ping")
 @RequestMapping(path = "/ping")
 public class PingController {
 
@@ -47,7 +40,7 @@ public class PingController {
 	 * @return Response entity that only display a message.
 	 */
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
-	@ApiOperation(value = "ping", httpMethod = "GET", notes = "Produces a ping message for the controller.", produces = "application/json")
+	@ApiOperation(value = "ping", httpMethod = "GET", notes = "Responds with a success result if the service is healthy.", produces = "application/json")
 	@ApiResponse(code = 404, message = "No Information Found for this Provider")
 	public ResponseEntity<PingResult> ping() {
 		getLog().info("Getting the ping info......");
