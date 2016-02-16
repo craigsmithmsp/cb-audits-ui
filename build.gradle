@@ -22,7 +22,6 @@ apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
-apply plugin: 'checkstyle'
 apply plugin: 'net.researchgate.release'
 apply plugin: 'org.sonarqube'
 apply plugin: 'com.jfrog.artifactory'
@@ -35,13 +34,14 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-	 maven {
-       url "http://jenkins.caringbridge.org:8081/artifactory/repositories/"
-   }
+    maven {
+       url "http://jenkins.caringbridge.org:8081/artifactory/repositories"
+    }
 }
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-jersey')
+        compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.boot:spring-boot-starter-web'){
 		// We will be using Undertow for our HTTP container so we don't need Tomcat
 		exclude module: 'spring-boot-starter-tomcat'
@@ -72,14 +72,6 @@ eclipse {
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.9'
-}
-
-
-File checkstyleConfigFile = file("${project.projectDir}/src/main/resources/config/checkstyle/checkstyle.xml")
-
-checkstyle {
-    configFile = checkstyleConfigFile
-    ignoreFailures = true
 }
 
 sonarqube {
