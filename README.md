@@ -7,6 +7,7 @@ A reference project for quickly building micro-service. Fork this project as a s
 
 When forking, adjust the following:
 
+* Change the package org.caringbridge.services.reference to org.caringbridge.services.[new-service-name]
 * In the application.yml, replace the values in the "app" section. For example, app.name should match the service name, like "campaigns".
 * In the build.gradle, replace the appName in the ext section with the proper application name.
 * In the logback-spring.xml, replace the app.name property value with the proper application name.
