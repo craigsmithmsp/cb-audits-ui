@@ -31,17 +31,12 @@ apply plugin: 'maven-publish'
 
 version = "${version}"
 
-jar {
-	baseName = "${appName}"
-	version = "${version}"
-}
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-	mavenCentral()
 	 maven {
-       url "http://jenkins.caringbridge.org:8081/artifactory/libs-snapshot/"
+       url "http://jenkins.caringbridge.org:8081/artifactory/repositories/"
    }
 }
 
@@ -53,7 +48,7 @@ dependencies {
 	}
 	// Undertow will serve as the application's HTTP container
 	compile('org.springframework.boot:spring-boot-starter-undertow')
-	compile('com.mangofactory:swagger-springmvc:1.0.2')
+	compile('com.mangofactory:swagger-springmvc:1.0.+')
 	
 	//CB common library
 	compile(group: 'org.caringbridge', name: 'cb-services-common', version: '1.+')
@@ -61,8 +56,8 @@ dependencies {
 
 	//Test dependencies
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile('cglib:cglib-nodep:3.2.0')
-	testCompile('com.jayway.jsonpath:json-path:2.1.0')
+	testCompile('cglib:cglib-nodep:3.2.+')
+	testCompile('com.jayway.jsonpath:json-path:2.1.+')
 	
 	
 }
@@ -90,7 +85,7 @@ checkstyle {
 sonarqube {
     properties {
         property "sonar.host.url", "http://jenkins.caringbridge.org:9000/"
-        property "sonar.projectKey", "providers4cb-mock"
+        property "sonar.projectKey", "${appName}"
         property "sonar.projectDescription", "Mock provider service for Campaign Micro-service"
         property "sonar.projectVersion", "${version}"
     }
@@ -131,13 +126,7 @@ artifactory {
     resolve {
         contextUrl = 'http://jenkins.caringbridge.org:8081/artifactory'
         repository {
-            repoKey = 'libs-release'
-        }
-        repository {
-            repoKey = 'libs-snapshot'
-        }
-        repository {
-            repoKey = 'remote-repos'
+            repoKey = 'repositories'
         }
     }
 } 
