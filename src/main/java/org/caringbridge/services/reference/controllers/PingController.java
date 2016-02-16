@@ -1,7 +1,14 @@
 package org.caringbridge.services.reference.controllers;
 
+import java.util.AbstractMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.AbstractMap.SimpleEntry;
+
+import org.apache.commons.collections.KeyValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.config.ConstructorArgumentValues.ValueHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,8 +49,18 @@ public class PingController {
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	@ApiOperation(value = "ping", httpMethod = "GET", notes = "Produces a ping message for the controller.", produces = "application/json")
 	@ApiResponse(code = 404, message = "No Information Found for this Provider")
-	public ResponseEntity<String> ping() {
+	public ResponseEntity<PingResult> ping() {
 		getLog().info("Getting the ping info......");
-		return ResponseEntity.ok("Success");
+		return ResponseEntity.ok(new PingResult("success"));
+
 	}
+
+}
+
+// This is just here to provide an example of how to return an object and have it automatically converted to json. Normally, there would be a
+// model class to represent the resource being requested. A service call would retrieve or build the model object and the controller would return it.
+class PingResult {
+    private String result;
+    public PingResult(String result) { this.result = result; }
+    public String getResult() { return result; }
 }

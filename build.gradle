@@ -1,6 +1,7 @@
 buildscript {
 	ext {
 		springBootVersion = '1.3.1.RELEASE'
+        appName = 'cb-services-reference'
 	}
 	repositories {
 		mavenCentral()
@@ -21,7 +22,6 @@ apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
-apply plugin: 'checkstyle'
 apply plugin: 'net.researchgate.release'
 apply plugin: 'org.sonarqube'
 apply plugin: 'com.jfrog.artifactory'
@@ -30,29 +30,25 @@ apply plugin: 'maven-publish'
 
 version = "${version}"
 
-jar {
-	baseName = 'providers4cb-mock'
-	version = "${version}"
-}
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-	mavenCentral()
-	 maven {
-       url "http://jenkins.caringbridge.org:8081/artifactory/libs-snapshot/"
-   }
+    maven {
+       url "http://jenkins.caringbridge.org:8081/artifactory/repositories"
+    }
 }
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-jersey')
+        compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.boot:spring-boot-starter-web'){
 		// We will be using Undertow for our HTTP container so we don't need Tomcat
 		exclude module: 'spring-boot-starter-tomcat'
 	}
 	// Undertow will serve as the application's HTTP container
 	compile('org.springframework.boot:spring-boot-starter-undertow')
-	compile('com.mangofactory:swagger-springmvc:1.0.2')
+	compile('com.mangofactory:swagger-springmvc:1.0.+')
 	
 	//CB common library
 	compile(group: 'org.caringbridge', name: 'cb-services-common', version: '1.+')
@@ -60,8 +56,8 @@ dependencies {
 
 	//Test dependencies
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile('cglib:cglib-nodep:3.2.0')
-	testCompile('com.jayway.jsonpath:json-path:2.1.0')
+	testCompile('cglib:cglib-nodep:3.2.+')
+	testCompile('com.jayway.jsonpath:json-path:2.1.+')
 	
 	
 }
@@ -78,18 +74,10 @@ task wrapper(type: Wrapper) {
 	gradleVersion = '2.9'
 }
 
-
-File checkstyleConfigFile = file("${project.projectDir}/src/main/resources/config/checkstyle/checkstyle.xml")
-
-checkstyle {
-    configFile = checkstyleConfigFile
-    ignoreFailures = true
-}
-
 sonarqube {
     properties {
         property "sonar.host.url", "http://jenkins.caringbridge.org:9000/"
-        property "sonar.projectKey", "providers4cb-mock"
+        property "sonar.projectKey", "${appName}"
         property "sonar.projectDescription", "Mock provider service for Campaign Micro-service"
         property "sonar.projectVersion", "${version}"
     }
@@ -130,13 +118,7 @@ artifactory {
     resolve {
         contextUrl = 'http://jenkins.caringbridge.org:8081/artifactory'
         repository {
-            repoKey = 'libs-release'
-        }
-        repository {
-            repoKey = 'libs-snapshot'
-        }
-        repository {
-            repoKey = 'remote-repos'
+            repoKey = 'repositories'
         }
     }
 } 

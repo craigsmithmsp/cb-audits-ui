@@ -3,7 +3,7 @@ package org.caringbridge.services.reference.test;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.caringbridge.services.reference.CbReferenceApplication;
+import org.caringbridge.services.reference.CbApplication;
 import org.caringbridge.services.reference.controllers.PingController;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = CbReferenceApplication.class)
+@SpringApplicationConfiguration(classes = CbApplication.class)
 @WebAppConfiguration
 public class PingControllerTest {
 

@@ -1,6 +1,7 @@
 package org.caringbridge.services.reference;
 
 import org.caringbridge.common.services.annotations.EnableCorrelationFilter;
+import org.caringbridge.common.services.annotations.EnableTrackRequestTime;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,13 +16,14 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan("org.caringbridge.services.reference")
 @EnableCorrelationFilter
-public class CbReferenceApplication {
+@EnableTrackRequestTime
+public class CbApplication {
 	
 	/**
 	 * Main method to run the Spring Boot Application.
 	 * @param args arguments used when running on command line.
 	 */
 	public static void main(final String[] args) {
-		SpringApplication.run(CbReferenceApplication.class, args);
+		SpringApplication.run(CbApplication.class, args);
 	}
 }
