@@ -17,13 +17,13 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("org.caringbridge.services.reference")
 @EnableCorrelationFilter
 @EnableTrackRequestTime
-public class CbReferenceApplication {
+public class CbApplication {
 	
 	/**
 	 * Main method to run the Spring Boot Application.
 	 * @param args arguments used when running on command line.
 	 */
 	public static void main(final String[] args) {
-		SpringApplication.run(CbReferenceApplication.class, args);
+		SpringApplication.run(CbApplication.class, args);
 	}
 }
