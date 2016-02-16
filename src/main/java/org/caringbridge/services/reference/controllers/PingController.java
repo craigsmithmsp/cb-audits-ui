@@ -18,8 +18,8 @@ import io.swagger.annotations.ApiResponse;
  *
  */
 @RestController
-@Api(basePath = "/ping", description = "The ping resource represents just a success or failure heartbeat.", value = "ping")
-@RequestMapping(path = "/ping")
+@Api(basePath = "/references", description = "The references resource is a dummy api for demonstration purposes.", value = "references")
+@RequestMapping(path = "/references")
 public class PingController {
 
 	/**
@@ -39,7 +39,7 @@ public class PingController {
 	 * 
 	 * @return Response entity that only display a message.
 	 */
-	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(path="/ping", method = RequestMethod.GET, produces = "application/json")
 	@ApiOperation(value = "ping", httpMethod = "GET", notes = "Responds with a success result if the service is healthy.", produces = "application/json")
 	@ApiResponse(code = 404, message = "No Information Found for this Provider")
 	public ResponseEntity<PingResult> ping() {

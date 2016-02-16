@@ -62,6 +62,9 @@ public class SwaggerConfig {
     @Value(value = "${org.caringbridge.services.version}")
     private String swaggerApiVersion;
     
+    @Value(value = "${app.name}")
+    private String appName;
+    
     @Value(value = "${org.caringbridge.services.swagger.uri-base}")
     private String swaggerUriBase;
 
