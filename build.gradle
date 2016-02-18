@@ -51,7 +51,7 @@ dependencies {
 
     compile('io.springfox:springfox-swagger2:2.2.+')
     compile('io.springfox:springfox-swagger-ui:2.2.+') //remove this if we don't want to see swagger-ui.html
-
+    compile("org.springframework.boot:spring-boot-starter-actuator")
 	
 	//CB common library
 	compile(group: 'org.caringbridge', name: 'cb-services-common', version: '1.+')

@@ -18,6 +18,42 @@ org:
           type: Caring Bridge proprietary license
           url: http://www.caringbridge.org/licenses/LICENSE
 
+#Enable only health of spring boot actuator
+endpoints:
+  beans:
+    enabled: false
+  configprops:
+    enabled: false
+  docs:
+    enabled: false
+  dump:
+    enabled: false
+  env:
+    enabled: false
+  flyway:
+    enabled: false
+  health:
+    id: health
+  info:
+    enabled: false
+  jmx:
+    enabled: false
+  jolokia:
+    enabled: false
+  liquibase:
+    enabled: false
+  logfile:
+    enabled: false
+  mappings:
+    enabled: false
+  metrics:
+    enabled: false
+  shutdown:
+    enabled: false
+  trace:
+    enabled: false
+
+
 spring:
   profiles:
     active: dev

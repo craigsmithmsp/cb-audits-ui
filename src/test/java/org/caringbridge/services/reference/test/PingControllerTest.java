@@ -39,7 +39,7 @@ public class PingControllerTest {
 	@Test
 	public void pingControllerShouldReturnRightData() throws Exception {
 
-		RequestBuilder mockGet = MockMvcRequestBuilders.get("/ping");
+		RequestBuilder mockGet = MockMvcRequestBuilders.get("/references/ping");
 
 		ResultActions response = mockMvc.perform(mockGet);
 		response.andDo(MockMvcResultHandlers.print()).andExpect(status().is(200))
