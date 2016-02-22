@@ -1,10 +1,10 @@
-package org.caringbridge.services.reference.test;
+package org.caringbridge.ui.audits.controllers;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.caringbridge.services.reference.CbApplication;
-import org.caringbridge.services.reference.controllers.PingController;
+import org.caringbridge.ui.audits.CbApplication;
+import org.caringbridge.ui.audits.controllers.PingController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +39,7 @@ public class PingControllerTest {
 	@Test
 	public void pingControllerShouldReturnRightData() throws Exception {
 
-		RequestBuilder mockGet = MockMvcRequestBuilders.get("/references/ping");
+		RequestBuilder mockGet = MockMvcRequestBuilders.get("/audits/ui/ping");
 
 		ResultActions response = mockMvc.perform(mockGet);
 		response.andDo(MockMvcResultHandlers.print()).andExpect(status().is(200))

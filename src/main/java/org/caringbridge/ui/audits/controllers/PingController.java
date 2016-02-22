@@ -1,4 +1,4 @@
-package org.caringbridge.services.reference.controllers;
+package org.caringbridge.ui.audits.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,13 +13,13 @@ import io.swagger.annotations.ApiResponse;
 
 /**
  * Controller for handling the request by mapping url.
- * 
+ *
  * @author guanlun.mu
  *
  */
 @RestController
-@Api(basePath = "/references", description = "The references resource is a dummy api for demonstration purposes.", value = "references")
-@RequestMapping(path = "/references")
+@Api(basePath = "/audits/ui", description = "The references resource is a dummy api for demonstration purposes.", value = "references")
+@RequestMapping(path = "/audits/ui")
 public class PingController {
 
 	/**
@@ -36,7 +36,7 @@ public class PingController {
 
 	/**
 	 * A Ping controller to check the health of the controller.
-	 * 
+	 *
 	 * @return Response entity that only display a message.
 	 */
 	@RequestMapping(path="/ping", method = RequestMethod.GET, produces = "application/json")

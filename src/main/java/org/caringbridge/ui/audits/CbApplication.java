@@ -1,4 +1,4 @@
-package org.caringbridge.services.reference;
+package org.caringbridge.ui.audits;
 
 import org.caringbridge.common.services.annotations.EnableCorrelationFilter;
 import org.caringbridge.common.services.annotations.EnableTrackRequestTime;
@@ -10,18 +10,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Main class to run the application.
- * 
+ *
  * @author guanlun.mu
  *
  */
 
 @SpringBootApplication
-@ComponentScan("org.caringbridge.services.reference")
+@ComponentScan("org.caringbridge.ui.audits")
 @EnableCorrelationFilter
 @EnableTrackRequestTime
 @EnableSwagger2
 public class CbApplication {
-	
+
 	/**
 	 * Main method to run the Spring Boot Application.
 	 * @param args arguments used when running on command line.

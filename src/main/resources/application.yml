@@ -1,6 +1,6 @@
 app:
-  name: references
-  
+  name: audits-ui
+
 
 org:
   caringbridge:
@@ -10,8 +10,8 @@ org:
         title: CaringBridge Reference Micro-Service
         description: >
           This is a multi-line description of
-          the micro service. 
-        uri-base: /references  # Tried using ${app.name} here without success, not sure why
+          the micro service.
+        uri-base: /audits/ui  # Tried using ${app.name} here without success, not sure why
         termslocation: /terms_of_service.txt
         contact: contact@caringbridge.org
         license:
@@ -57,7 +57,7 @@ endpoints:
 spring:
   profiles:
     active: dev
-    
+
 ---
 spring:
   profiles: dev
@@ -68,7 +68,7 @@ server:
 ---
 spring:
   profiles: qa
-  
+
 server:
   port: 11000
   undertow:
@@ -76,4 +76,3 @@ server:
       dir: /var/log/microservices/${app.name}
       enabled: true
       pattern: '%h %l %u %t "%r" %s %b %{i,X-Request-Id} %D'
- 

@@ -23,6 +23,9 @@ local.properties
 # Eclipse Core
 .project
 
+# STS files
+.springBeans
+
 # External tool builders
 .externalToolBuilders/
 

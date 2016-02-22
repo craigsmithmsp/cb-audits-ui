@@ -1,4 +1,4 @@
-package org.caringbridge.services.reference.config;
+package org.caringbridge.ui.audits.config;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
