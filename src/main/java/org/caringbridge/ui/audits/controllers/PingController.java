@@ -18,8 +18,8 @@ import io.swagger.annotations.ApiResponse;
  *
  */
 @RestController
-@Api(basePath = "/audits/ui", description = "The references resource is a dummy api for demonstration purposes.", value = "references")
-@RequestMapping(path = "/audits/ui")
+@Api(basePath = "/ui/audits", description = "The references resource is a dummy api for demonstration purposes.", value = "references")
+@RequestMapping(path = "/ui/audits")
 public class PingController {
 
 	/**

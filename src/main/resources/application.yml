@@ -11,7 +11,7 @@ org:
         description: >
           This is a multi-line description of
           the micro service.
-        uri-base: /audits/ui  # Tried using ${app.name} here without success, not sure why
+        uri-base: /ui  # Tried using ${app.name} here without success, not sure why
         termslocation: /terms_of_service.txt
         contact: contact@caringbridge.org
         license:
