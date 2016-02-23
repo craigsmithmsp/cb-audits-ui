@@ -8,6 +8,7 @@ public class AuditSummaryRepresentation {
 	private String profileName;
 	private String profileEmail;
 	private String siteName;
+	private Status status;
 	private List<FindingRepresentation> findings;
 	
 	public String getProfileName() {
@@ -27,6 +28,12 @@ public class AuditSummaryRepresentation {
 	}
 	public void setSiteName(String siteName) {
 		this.siteName = siteName;
+	}
+	public Status getStatus() {
+		return status;
+	}
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 	public List<FindingRepresentation> getFindings() {
 		return findings;

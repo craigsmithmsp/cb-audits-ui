@@ -28,6 +28,7 @@ public class AuditSummaryController {
 		mockAuditSummary.setProfileEmail("amos.author@gmail.com");
 		mockAuditSummary.setProfileName("Amos");
 		mockAuditSummary.setSiteName("Support Patty Patient");
+		mockAuditSummary.setStatus(Status.QUESTIONABLE);
 		FindingRepresentation finding = new FindingRepresentation();
 		finding.setDetails("Javascript was disabled when site was created.");
 		finding.setLastRunDate(new Date());
