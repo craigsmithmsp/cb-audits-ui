@@ -6,6 +6,13 @@ org:
   caringbridge:
     services:
       version: 1.0
+      db:
+        host: ${mongoHost:33.33.33.70}
+        port: ${mongoPort:27017}
+        user: ${mongoUser:}
+        db: ${mongoDb:test}
+        userdb: ${mongoDb:test}
+        pwd: ${mongoPwd:}
       swagger:
         title: CaringBridge Reference Micro-Service
         description: >

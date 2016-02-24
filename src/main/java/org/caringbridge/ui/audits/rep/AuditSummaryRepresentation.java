@@ -2,11 +2,12 @@ package org.caringbridge.ui.audits.rep;
 
 import java.util.List;
 
+import org.caringbridge.ui.audits.model.Audit.Status;
+
 public class AuditSummaryRepresentation {
-	public enum Status { PASSED, QUESTIONABLE, INVALID, FAILED, DEACTIVATED, PURGED }
-	public enum Type { SITE, PROFILE };
 	private String profileName;
 	private String profileEmail;
+	private int siteId;
 	private String siteName;
 	private Status status;
 	private List<FindingRepresentation> findings;
@@ -22,6 +23,12 @@ public class AuditSummaryRepresentation {
 	}
 	public void setProfileEmail(String profileEmail) {
 		this.profileEmail = profileEmail;
+	}
+	public int getSiteId() {
+		return siteId;
+	}
+	public void setSiteId(int siteId) {
+		this.siteId = siteId;
 	}
 	public String getSiteName() {
 		return siteName;

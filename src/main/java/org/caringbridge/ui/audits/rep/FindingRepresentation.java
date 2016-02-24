@@ -2,9 +2,11 @@ package org.caringbridge.ui.audits.rep;
 
 import java.util.Date;
 
+import org.caringbridge.ui.audits.model.Finding;
+
 public class FindingRepresentation {
     private String ruleName;
-    private AuditSummaryRepresentation.Status status;
+    private Finding.Status status;
     private Date lastRunDate;
     private String details;
     
@@ -14,10 +16,10 @@ public class FindingRepresentation {
 	public void setRuleName(String ruleName) {
 		this.ruleName = ruleName;
 	}
-	public AuditSummaryRepresentation.Status getStatus() {
+	public Finding.Status getStatus() {
 		return status;
 	}
-	public void setStatus(AuditSummaryRepresentation.Status status) {
+	public void setStatus(Finding.Status status) {
 		this.status = status;
 	}
 	public Date getLastRunDate() {

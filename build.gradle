@@ -2,12 +2,14 @@ buildscript {
 	ext {
 		springBootVersion = '1.3.1.RELEASE'
         appName = 'cb-audits-ui'
+		mongodbPluginVersion = '0.8.+'
 	}
 	repositories {
 		mavenCentral()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("com.sourcemuse.gradle.plugin:gradle-mongo-plugin:${mongodbPluginVersion}")
 	}
 }
 
@@ -48,6 +50,8 @@ dependencies {
 	}
 	// Undertow will serve as the application's HTTP container
 	compile('org.springframework.boot:spring-boot-starter-undertow')
+	
+	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 
     compile('io.springfox:springfox-swagger2:2.2.+')
     compile('io.springfox:springfox-swagger-ui:2.2.+') //remove this if we don't want to see swagger-ui.html
