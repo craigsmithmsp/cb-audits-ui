@@ -1,0 +1,65 @@
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link href="styles/main.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1></h1>
+
+    <div id="tab-bar">
+        <ul>
+            <li id="questionableTab" class="selected" linkto="questionable"><a href="#questionable">Questionable</a></li>
+            <li id="valieTab" class="valid" linkto="valid"><a href="#valid">Valid</a></li>
+            <li id="failedTab" class="valid" linkto="failed"><a href="#failed" role="button">Failed</a></li>
+        </ul>
+    </div>
+
+    <div id="questionable" >
+        <table>
+            <tr class="header">
+                <th>Profile</th>
+                <th>Profile E-mail</th>
+                <th>Site Name</th>
+                <th>Reasons</th>
+                <th>
+                    <input type="checkbox" class="selectAll">
+                </th>
+            </tr>
+        </table>
+    </div>
+
+    <div id="valid" class="hidden">
+        <table>
+            <tr>
+                <th>Profile</th>
+                <th>Profile E-mail</th>
+                <th>Site Name</th>
+                <th>Reasons</th>
+                <th>Validated By</th>
+                <th>
+                    <input type="checkbox" class="selectAll">
+                </th>
+            </tr>
+        </table>
+    </div>
+
+    <div id="failed" class="hidden">
+        <table>
+            <tr class="header">
+                <th>Profile</th>
+                <th>Profile E-mail</th>
+                <th>Site Name</th>
+                <th>Reasons</th>
+                <th>Confirmed By</th>
+                <th>
+                    <input type="checkbox" class="selectAll">
+                </th>
+            </tr>
+        </table>
+    </div>
+</body>
+
+<script type="application/javascript" src="scripts/main.js">
+
+
+</script>

@@ -1,0 +1,48 @@
+ #tab-bar {
+     float: left;
+ }
+ #tab-bar ul {
+     list-style: none;
+     cursor: pointer;
+ }
+ #tab-bar ul li {
+     width: 12em;
+     height: 3em;
+     border-top: 1px solid #f8971d;
+     border-right: 1px solid #f8971d;
+     border-bottom: 1px solid #f8971d;
+     border-left: 8px solid #f8971d;
+     background-color: #a21984;
+     margin: 0.5em 0;
+     border-radius: 6px;
+ }
+ #tab-bar ul li.selected {
+     border-right: none;
+     background-color: #fff;
+     border-left: 8px solid #a21984;
+     border-top: 1px solid #000;
+     border-bottom: 1px solid #000;
+ }
+ #tab-bar ul li:not(.selected):hover {
+     background-color: 6d1159;
+ }
+ #tab-bar ul li.selected a {
+     color: #000;
+ }
+ #tab-bar ul li.selected a:hover {
+     color: gray;
+ }
+ #tab-bar ul li a {
+     font-family: Arial, Verdana, sans-serif;
+     font-size: 20px;
+     text-decoration: none;
+     color: #fff;
+     display: block;
+     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+     padding: 0.5em 1em;
+     text-align: left;
+ }
+
+.hidden{
+    display:none;
+}
