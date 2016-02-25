@@ -1,64 +1,45 @@
- $(document).ready(getQuestionable);
+ $(document).ready(function () {
 
- 
- //Ajax call for getting all questionable profiles:
- function getQuestionable() {
-     $.ajax({
-             type: "get",
-             url: "http://localhost:11000/ui/audit/summaries"
-         })
-         .done(function (questionableList) {
-             var questionableRow = "";
+     getQuestionable();
 
-             var count = questionableList.length;
-             $("#questionableTab a").append(" (" + count + ")");
+     //Event Listener for the selectAll checkbox:
+     $(".selectAll").change(function () {
+         var parentTable = $(this).parentsUntil("div");
+         if (this.checked) {
+             parentTable.find("input[type='checkbox']").prop("checked", true);
 
-             for (var i = 0; i < questionableList.length; i++) {
+         } else {
+             parentTable.find("input[type='checkbox']").prop("checked", false);
+         }
+     });
 
-                 questionableRow += "<tr>";
-                 var currentQuestionable = questionableList[i];
+     $("#tab-bar li").click(function () {
+         if (!$(this).hasClass("selected")) {
+             $(this).addClass("selected");
+             $("#tab-bar li").not(this).removeClass("selected");
 
-                 var profileName = currentQuestionable['profileName'];
-                 questionableRow += ("<td>" + profileName + "</td>");
+             var tableToShow = $(this).attr("linkto");
 
-                 var profileEmail = currentQuestionable['profileEmail'];
-                 questionableRow += ("<td>" + profileEmail + "</td>");
+             var table = $("#" + tableToShow);
+             $("div").has("table").addClass("hidden");
+             $("#" + tableToShow).removeClass("hidden");
 
-                 var siteName = currentQuestionable['siteName'];
-                 questionableRow += ("<td>" + siteName + "</td>");
+         }
+     })
 
-                 var reasons = currentQuestionable['findings'][0]['ruleName'];
-                 questionableRow += ("<td>" + reasons + "</td>");
+     var checkboxes = $("td");
+     console.log(checkboxes);
 
-                 questionableRow += ("<td><input type='checkbox' ></td>");
+     $("input[type='checkbox']").change(function () {
+         console.log(this);
+         var div = $(this).parentsUntil("body");
+         if (this.checked) {
+             div.find("button.directive").removeClass("hidden");
+             div.find("button.refresh").addClass("hidden");
+         } else {
+             div.find("button.directive").addClass("hidden");
+             div.find("button.refresh").removeClass("hidden");
+         }
+     });
 
-                 questionableRow += "</tr>";
-             }
-             $("#questionable table").append(questionableRow);
-         });
- }
-
- //Event Listener for the selectAll checkbox:
- $(".selectAll").change(function () {
-     var parentTable = $(this).parentsUntil("div");
-     if (this.checked) {
-         parentTable.find("input[type='checkbox']").prop("checked", true);
-
-     } else {
-         parentTable.find("input[type='checkbox']").prop("checked", false);
-     }
  });
-
- $("#tab-bar li").click(function () {
-     if (!$(this).hasClass("selected")) {
-         $(this).addClass("selected");
-         $("#tab-bar li").not(this).removeClass("selected");
-         
-         var tableToShow = $(this).attr("linkto");
-         
-         var table = $("#" + tableToShow);
-         $("div").not(this).has("table").addClass("hidden");
-         $("#"+tableToShow).removeClass("hidden");
-
-     }
- })
