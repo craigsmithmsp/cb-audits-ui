@@ -14,21 +14,16 @@
      });
 
      $("#tab-bar li").click(function () {
+         var tableToShow = $(this).attr("linkto");
          if (!$(this).hasClass("selected")) {
              $(this).addClass("selected");
              $("#tab-bar li").not(this).removeClass("selected");
-
-             var tableToShow = $(this).attr("linkto");
-
              var table = $("#" + tableToShow);
              $("div").has("table").addClass("hidden");
              $("#" + tableToShow).removeClass("hidden");
-
          }
+         refreshTable(tableToShow);
      })
-
-     var checkboxes = $("td");
-     console.log(checkboxes);
 
      $("input[type='checkbox']").change(function () {
          console.log(this);
@@ -41,5 +36,10 @@
              div.find("button.refresh").removeClass("hidden");
          }
      });
+     
+     $(".refresh").click(function() {
+         var tableToShow = $(this).parent().attr("id");
+         refreshTable(tableToShow);
+     })
 
  });
