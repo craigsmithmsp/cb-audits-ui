@@ -11,9 +11,9 @@
  #tab-bar ul li {
      /*     width: 12em;*/
      height: 3em;
-     border-top: 1px solid #f8971d;
-     border-right: 1px solid #f8971d;
-     border-bottom: 1px solid #f8971d;
+     border-top: none;
+     border-right: none;
+     border-bottom: none;
      border-left: 8px solid #f8971d;
      background-color: #a21984;
      margin: 0.5em 0;
@@ -54,6 +54,15 @@
      padding-left: 5%;
      padding-top: 5%;
  }
+ table,
+ th,
+ td {
+     border: 1px solid #efe9e5;
+     border-collapse: collapse;
+     text-align: center;
+     font-family: Arial, Verdana, sans-serif;
+     vertical-align: middle;
+ }
  table {
      width: 95%;
      margin: 1em 0.5em;
@@ -70,15 +79,6 @@
  }
  tr:not(:first-child):hover {
      background-color: #f5f5f5;
- }
- table,
- th,
- td {
-     border: 1px solid #efe9e5;
-     border-collapse: collapse;
-     text-align: center;
-     font-family: Arial, Verdana, sans-serif;
-     vertical-align: middle;
  }
  input[type="checkbox"] {
      width: 15px;
