@@ -3,6 +3,7 @@ package org.caringbridge.ui.audits.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -37,7 +38,7 @@ public class AuditSummaryController {
 		mockAuditSummary.setStatus(Audit.Status.QUESTIONABLE);
 		FindingRepresentation finding = new FindingRepresentation();
 		finding.setDetails("Javascript was disabled when site was created.");
-		finding.setLastRunDate(new Date());
+		finding.setLastRunDate(LocalDateTime.now());
 		finding.setRuleName("JSDISABLED");
 		finding.setStatus(Finding.Status.FAILED);
 		mockAuditSummary.setFindings(Arrays.asList(finding));
