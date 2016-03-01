@@ -18,8 +18,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@Api(basePath = "/ui/audit", description = "Provides audit summary information.", value = "ui/audit")
-@RequestMapping(path = "/ui/audit")
+@Api(basePath = "/ui/audits", description = "Provides audit summary information.", value = "ui/audits")
+@RequestMapping(path = "/ui/audits")
 public class AuditSummaryController {
 	private final Logger log = LoggerFactory.getLogger(AuditSummaryController.class);
 	@Autowired
