@@ -4,6 +4,11 @@ import java.util.List;
 
 import org.caringbridge.ui.audits.model.Audit.Status;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+@JsonInclude(Include.NON_NULL)
 public class AuditSummaryRepresentation {
 	private String profileName;
 	private String profileEmail;
