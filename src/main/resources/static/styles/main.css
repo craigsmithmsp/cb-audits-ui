@@ -1,106 +1,14 @@
- #tab-bar {
-     float: left;
-     height: 100%;
-     width: 25%;
-     padding-top: 10%;
- }
- #tab-bar ul {
-     list-style: none;
-     cursor: pointer;
- }
- #tab-bar ul li {
-     /*     width: 12em;*/
-     height: 3em;
-     border-top: none;
-     border-right: none;
-     border-bottom: none;
-     border-left: 8px solid #f8971d;
-     background-color: #a21984;
-     margin: 0.5em 0;
-     border-radius: 6px;
- }
- #tab-bar ul li.selected {
-     border-right: none;
-     background-color: #fff;
-     border-left: 8px solid #a21984;
-     border-top: 1px solid #000;
-     border-bottom: 1px solid #000;
- }
- #tab-bar ul li:not(.selected):hover {
-     background-color: 6d1159;
- }
- #tab-bar ul li.selected a {
-     color: #000;
- }
- #tab-bar ul li.selected a:hover {
-     color: gray;
- }
- #tab-bar ul li a {
-     font-family: Arial, Verdana, sans-serif;
-     font-size: 20px;
-     text-decoration: none;
-     color: #fff;
-     display: block;
-     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
-     padding: 0.5em 1em;
-     text-align: left;
- }
- .hidden {
-     display: none;
- }
- div.table {
-     width: 70%;
-     float: right;
-     padding-left: 5%;
-     padding-top: 5%;
- }
- table,
- th,
- td {
-     border: 1px solid #efe9e5;
-     border-collapse: collapse;
-     text-align: center;
-     font-family: Arial, Verdana, sans-serif;
-     vertical-align: middle;
- }
- table {
-     width: 95%;
-     margin: 1em 0.5em;
- }
- th {
-     height: 2em;
-     background-color: #FDCB85;
- }
- td {
-     height: 5em;
- }
- tr:not(:first-child) {
-     cursor: pointer;
- }
- tr:not(:first-child):hover {
-     background-color: #f5f5f5;
- }
- input[type="checkbox"] {
-     width: 15px;
-     height: 15px;
- }
- button {
-     float: right;
-     width: 8em;
-     margin-right: 5%;
-     margin-bottom: 1em;
-     color: #fff;
-     background-color: #a21984;
-     border-color: #640f52;
-     padding: 10px 16px;
-     font-size: 18px;
-     line-height: 1.3333333;
-     border-radius: 6px;
-     cursor: pointer;
-     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
-     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
-     margin-top: 2em;
- }
- button:hover {
-     background-color: #6d1159;
- }
+/*
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+*/
+
+body {
+  background: #fafafa;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+}

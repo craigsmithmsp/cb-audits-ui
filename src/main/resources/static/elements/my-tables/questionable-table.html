@@ -1,0 +1,105 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-datatable/paper-datatable.html">
+<link rel="import" href="../../bower_components/paper-datatable/paper-datatable-card.html">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+
+<dom-module id="questionable-table">
+    <template>
+
+        <paper-datatable-card id="datatableCard" header="Questionable Sites" data-source="{{dataSource}}" progress id-property="sha1">
+            <div toolbar-main>
+                <paper-icon-button icon="refresh" on-tap="refreshPage"></paper-icon-button>
+            </div>
+            <div toolbar-select>
+                <paper-icon-button icon="thumb-up" on-tap="markAsValid"></paper-icon-button>
+                <paper-icon-button icon="thumb-down" on-tap="markAsFailed"></paper-icon-button>
+            </div>
+            <paper-datatable id="datatable" selectable multi-selection>
+                
+<!--
+                <paper-datatable-column id="nameColumn" header="Profile Name" property="profileName" style="min-width: 200px;" sortable>
+                </paper-datatable-column>
+-->
+
+
+                <paper-datatable-column header="Profile E-mail" property="profileEmail" style="min-width: 200px;" sortable></paper-datatable-column>
+
+                <paper-datatable-column header="Site Name" property="siteName" style="min-width: 130px;" sortable></paper-datatable-column>
+
+                <paper-datatable-column header="Reasons" property="findings" style="min-width: 150px;" sortable>
+                    <template>
+                        <template is="dom-repeat" items="[[value]]" as="finding" filter="isFailed">
+                            <span>[[finding.ruleName]]</span>
+                        </template>
+
+                    </template>
+                </paper-datatable-column>
+                <!--
+                <paper-datatable-column header="Cell" property="cell" style="min-width: 150px;" sortable></paper-datatable-column>
+                <paper-datatable-column header="Address" property="location" style="min-width: 200px;" sortable>
+                    <template>
+                        <div>[[capitalize(value.street)]]</div>
+                        <div><span>[[capitalize(value.state)]]</span> <span>[[capitalize(value.zip)]]</span></div>
+                    </template>
+                </paper-datatable-column>
+-->
+            </paper-datatable>
+        </paper-datatable-card>
+
+
+    </template>
+
+    <script>
+        Polymer({
+            is: "questionable-table",
+            ready: function() {
+                this.capitalize = function(str) {
+                    return str.toString().split(' ').map(function(str) {
+                        return str.substr(0, 1).toUpperCase() + str.substr(1, str.length - 1);
+                    }).join(' ');
+                };
+
+                this.isFailed = function(item) {
+                    return item.status == 'FAILED';
+                };
+
+            },
+            properties: {
+                dataSource: {
+                    type: Object,
+                    value: {
+                        get: function(sort, page, pageSize) {
+                            return new Promise(function(resolve, reject) {
+                                var httpRequest = new XMLHttpRequest();
+                                httpRequest.onreadystatechange = function() {
+                                    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                                        if (httpRequest.status === 200) {
+                                            var result = JSON.parse(httpRequest.responseText);
+                                            //                                            var users = result['results'].map(function(resultItem) {
+                                            //                                                return resultItem.user;
+                                            //                                            });
+                                            resolve(result);
+                                        }
+                                    }
+                                };
+                                httpRequest.open('GET', 'http://localhost:11000/ui/audit/summaries/?status=QUESTIONABLE&type=SITE');
+                                httpRequest.send();
+                            });
+                        },
+                        // none of the <templates> bind in an editable way right now, but if they would this is the function
+                        // that's triggered after an edit
+                        set: function(id, property, value) {
+                            console.info("a save was triggered", arguments);
+                        },
+                        length: 10
+                    }
+                }
+            }
+        });
+
+    </script>
+
+
+</dom-module>
