@@ -39,6 +39,7 @@ public class AuditSummaryService {
 			Site site = siteSvc.getSiteById(Integer.valueOf(audit.getTypeId()));
 			summary.setSiteName(site.getName());
 			summary.setStatus(audit.getStatus());
+			summary.setLastModifiedUser(audit.getLastModifiedUser());
 			
 			//Add findings
 			List<FindingRepresentation> findingReps = new ArrayList<FindingRepresentation>();

@@ -10,6 +10,7 @@ public class AuditSummaryRepresentation {
 	private int siteId;
 	private String siteName;
 	private Status status;
+	private String lastModifiedUser;
 	private List<FindingRepresentation> findings;
 	
 	public String getProfileName() {
@@ -41,6 +42,12 @@ public class AuditSummaryRepresentation {
 	}
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+	public String getLastModifiedUser() {
+		return lastModifiedUser;
+	}
+	public void setLastModifiedUser(String lastModifiedUser) {
+		this.lastModifiedUser = lastModifiedUser;
 	}
 	public List<FindingRepresentation> getFindings() {
 		return findings;
