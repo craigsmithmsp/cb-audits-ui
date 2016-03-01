@@ -1,6 +1,13 @@
 package org.caringbridge.ui.audits.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import org.caringbridge.ui.audits.util.LocalDateISODeserializer;
+import org.caringbridge.ui.audits.util.LocalDateISOSerializer;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public class Finding {
     public enum Status { INVALID, PASSED, FAILED }
@@ -9,7 +16,7 @@ public class Finding {
     private Audit.Type type;
     private String typeId;
     private Finding.Status status;
-    private Date lastRunDate;
+    private LocalDateTime lastRunDate;
     private String details;
 
     public String getId() {
@@ -51,12 +58,13 @@ public class Finding {
     public void setStatus(Status status) {
         this.status = status;
     }
-    
-    public Date getLastRunDate() {
+    @JsonSerialize(using=LocalDateISOSerializer.class)
+    public LocalDateTime getLastRunDate() {
         return lastRunDate;
     }
     
-    public void setLastRunDate(Date lastRunDate) {
+    @JsonDeserialize(using=LocalDateISODeserializer.class)
+    public void setLastRunDate(LocalDateTime lastRunDate) {
         this.lastRunDate = lastRunDate;
     }
 
