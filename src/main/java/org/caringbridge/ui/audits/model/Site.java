@@ -1,15 +1,13 @@
 package org.caringbridge.ui.audits.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 
 public class Site {
     @Id
 	private int _id;
 	private String isDeleted;
 	private String name;
-	@Transient
-	private int profileId;
+	private Integer primaryOrganizerId;
 	
 	// Getters and Setters
 	public int get_id() {
@@ -30,10 +28,10 @@ public class Site {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getProfileId() {
-		return profileId;
+	public Integer getPrimaryOrganizerId() {
+		return primaryOrganizerId;
 	}
-	public void setProfileId(int profileId) {
-		this.profileId = profileId;
+	public void setPrimaryOrganizerId(Integer primaryOrganizerId) {
+		this.primaryOrganizerId = primaryOrganizerId;
 	}
 }

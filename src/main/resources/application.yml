@@ -1,6 +1,9 @@
 app:
   name: audits-ui
-
+  sub-services:
+    audits: http://vm30-2.caringbridge.org:11000
+    sites: http://vm30-2.caringbridge.org:11000
+    profiles: http://vm30-2.caringbridge.org:11000
 
 org:
   caringbridge:

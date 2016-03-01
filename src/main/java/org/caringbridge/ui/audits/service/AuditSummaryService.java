@@ -53,7 +53,7 @@ public class AuditSummaryService {
 			summary.setFindings(findingReps);
 			
 			// Add profile details
-			Profile profile = profileSvc.getProfileBySiteId(site.get_id());
+			Profile profile = profileSvc.getProfile(site.getPrimaryOrganizerId());
 			summary.setProfileEmail(profile.getEmail().getAddress());
 			summaries.add(summary);
 		}
