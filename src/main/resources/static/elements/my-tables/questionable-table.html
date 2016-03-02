@@ -17,11 +17,9 @@
                 <paper-icon-button icon="thumb-down" on-tap="markAsFailed"></paper-icon-button>
             </div>
             <paper-datatable id="datatable" selectable multi-selection>
-                
-<!--
+
                 <paper-datatable-column id="nameColumn" header="Profile Name" property="profileName" style="min-width: 200px;" sortable>
                 </paper-datatable-column>
--->
 
 
                 <paper-datatable-column header="Profile E-mail" property="profileEmail" style="min-width: 200px;" sortable></paper-datatable-column>
@@ -30,8 +28,10 @@
 
                 <paper-datatable-column header="Reasons" property="findings" style="min-width: 150px;" sortable>
                     <template>
-                        <template is="dom-repeat" items="[[value]]" as="finding" filter="isFailed">
-                            <span>[[finding.ruleName]]</span>
+                        <ul>
+                            <template is="dom-repeat" items="[[value]]" as="finding" filter="isFailed">
+                                <li>[[finding.ruleName]]</li>
+                        </ul>
                         </template>
 
                     </template>
@@ -84,7 +84,7 @@
                                         }
                                     }
                                 };
-                                httpRequest.open('GET', 'http://localhost:11000/ui/audit/summaries/?status=QUESTIONABLE&type=SITE');
+                                httpRequest.open('GET', 'http://localhost:11000/ui/audits/summaries/?status=QUESTIONABLE&type=SITE');
                                 httpRequest.send();
                             });
                         },
