@@ -16,7 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Polymer Starter Kit">
-    <title>Polymer Starter Kit</title>
+    <title>Caring Bridge Spam Sites Reviewer</title>
 
     <!-- Place favicon.ico in the `app/` directory -->
 
@@ -57,6 +57,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- For shared styles, shared-styles.html import in elements.html -->
     <style is="custom-style" include="shared-styles"></style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+
 </head>
 
 <body unresolved>
@@ -116,7 +119,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <iron-pages attr-for-selected="data-route" selected="{{route}}">
                         <section data-route="questionable">
                             <paper-material elevation="1">
-                                <questionable-table></questionable-table>
+                                <questionable-table data-length="{{value}}"></questionable-table>
                             </paper-material>
 
 
