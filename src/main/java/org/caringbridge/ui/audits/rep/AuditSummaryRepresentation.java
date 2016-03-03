@@ -94,6 +94,5 @@ public class AuditSummaryRepresentation {
 	public void setFindings(List<FindingRepresentation> findings) {
 		this.findings = findings;
 	}
-	
 }
 

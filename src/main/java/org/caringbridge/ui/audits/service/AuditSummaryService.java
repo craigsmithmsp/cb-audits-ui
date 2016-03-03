@@ -3,7 +3,6 @@ package org.caringbridge.ui.audits.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.caringbridge.ui.audits.exception.ResourceNotFoundException;
 import org.caringbridge.ui.audits.model.Audit;
 import org.caringbridge.ui.audits.model.Audit.Status;
 import org.caringbridge.ui.audits.model.Audit.Type;
@@ -11,6 +10,7 @@ import org.caringbridge.ui.audits.model.Finding;
 import org.caringbridge.ui.audits.model.Profile;
 import org.caringbridge.ui.audits.model.Site;
 import org.caringbridge.ui.audits.rep.AuditSummaryRepresentation;
+import org.caringbridge.ui.audits.rep.AuditsUpdateCallResponse;
 import org.caringbridge.ui.audits.rep.FindingRepresentation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,4 +57,29 @@ public class AuditSummaryService {
 	}
 	
 
+    /**
+     * Updates the status of one Audit object to the specified status by using 
+     * the external update operation of the audits services
+     * @param auditIds The String array of id of the audit to update
+     * @param status The new status of the audit object to use in the update
+     * @return List of AuditsUpdateCallResponse objects with the result of the update operation
+     */
+    public List<AuditsUpdateCallResponse> updateAuditStatus(String[] auditIds, Status status) {
+        return auditSvc.update(auditIds,status);
+    }
+
+    /**
+     * @return the auditSvc
+     */
+    public AuditService getAuditSvc() {
+        return auditSvc;
+    }
+
+    /**
+     * @param auditSvc the auditSvc to set
+     */
+    public void setAuditSvc(AuditService auditSvc) {
+        this.auditSvc = auditSvc;
+    }
+    
 }
