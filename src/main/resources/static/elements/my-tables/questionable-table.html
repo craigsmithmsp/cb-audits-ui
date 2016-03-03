@@ -18,14 +18,20 @@
             
             #detailInfo {
                 position: static;
-                width: 500px;
+                width: 80%;
                 height: 200px;
+                overflow-x:scroll;
             }
 
         </style>
 
         <paper-material id="detailInfo" style="display:none">
-
+        <div>
+        	<paper-icon-button icon="close" on-tap="closeInfo"></paper-icon-button>
+        	<paper-icon-button id="markAsPassed" icon="thumb-up" on-tap="markAsPassed"></paper-icon-button>
+            <paper-icon-button id="markAsFailed" icon="thumb-down" on-tap="markAsFailed"></paper-icon-button>
+        </div>
+			
         </paper-material>
 
         <paper-datatable-card id="datatableCard" header="Questionable Sites" data-source="{{dataSource}}" progress id-property="auditId">
@@ -101,6 +107,27 @@
                 this.$.datatable.deselectAll();
                 this.$.datatableCard.retrieveVisibleData();
             },
+            
+            showInfo: function() {
+                var auditId = this.$.datatable.selectedItems[0].auditId;
+
+                var detailTable = document.createElement("questionabledetail-table");
+                detailTable.setAttribute("audit-id", auditId);
+
+                var detailInfo = document.getElementById("detailInfo");
+                detailInfo.appendChild(detailTable);
+                detailInfo.setAttribute("style", "display:block");
+                console.log(auditId);
+            },
+            
+            closeInfo: function () {
+                var infoTable = document.getElementsByTagName("questionabledetail-table")[0];
+                console.log(infoTable);
+                var infoContainer = document.getElementById("detailInfo");
+                console.log(infoContainer);
+                infoContainer.removeChild(infoTable);
+                infoContainer.setAttribute("style", "display:none");
+            },
 
             markAsFailed: function() {
             	var ids = this.getSelectedIds(this);
@@ -113,19 +140,7 @@
 				this.$.updateStatusAjax.generateRequest();
             },
 
-            showInfo: function() {
-                var auditId = this.$.datatable.selectedItems[0].auditId;
-
-                var detailTable = document.createElement("questionabledetail-table");
-                detailTable.setAttribute("audit-id", auditId);
-
-                var detailInfo = document.getElementById("detailInfo");
-                detailInfo.appendChild(detailTable);
-                detailInfo.setAttribute("style", "display:block");
-                console.log(detailTable);
-
-                console.log(auditId);
-            },
+            
 
             onMarkPassedComplete: function(data) {
                 var results = this.$.passAjax.lastResponse;
@@ -154,7 +169,9 @@
                 this.$.passAjax.body = reqBody;
                 this.$.passAjax.generateRequest();
                 this.refreshTable();
-
+                this.closeInfo();
+            },
+            
             onMarkValidComplete: function(data){
             	var results = this.$.updateStatusAjax.lastResponse;
             	results.forEach(function(result){

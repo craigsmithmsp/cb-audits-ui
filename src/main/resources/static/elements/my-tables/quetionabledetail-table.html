@@ -5,34 +5,86 @@
 
 <dom-module id="questionabledetail-table">
     <template>
+        <style>
+        	table {
+        	table-layout: fixed;
+        	}
+        	
+            table,th,td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+      
+            td {
+                height: 100px;
+                width: 100px;
+                text-align: center;
+                vertical-align:center;
+            }
+            
+            #findingsTd{
+            width: 50em;
+            }
+            
+            ul {
+                padding-left: 30px;
+            }
+            
+            li {
+                list-style-type: square;
+            }
+            
+            #findings {
+                overflow-y: scroll;
+                height:100%;
+            }
+
+        </style>
+
+
         <table>
             <tr>
                 <th>Site Name</th>
+                <th>Site ID</th>
+                <th>Site Created At</th>
                 <th>Profile Name</th>
                 <th>Profile Email</th>
+                <th>Profile Created At</th>
+                <th>Sibling Site Count</th>
                 <th>Findings</th>
+                <th>Last Modified User</th>
+                <th>Last Modified Date</th>
+
+
             </tr>
 
             <tr>
-                <td>{{results.siteName}}</td>
-                <td>{{results.profileName}}</td>
-                <td>{{results.profileEmail}}</td>
-                <td>
-                    <ul>
-                        <template is="dom-repeat" items="{{results.findings}}" as="finding">
-                            <li>{{finding.details}}</li>
+                <td>{{result.siteName}}</td>
+                <td>{{result.siteId}}</td>
+                <td>{{result.siteCreatedAt}}</td>
+                <td>{{result.profileName}}</td>
+                <td>{{result.profileEmail}}</td>
+                <td>{{result.profileCreatedAt}}</td>
+                <td>{{result.siblingSiteCount}}</td>
+                <td id = "findingsTd">
+                <div id="findings">
+                <ul>
+                        <template is="dom-repeat" items="{{result.findings}}" as="finding" filter="isFailed">
+                            <li><b>Rule Name:</b> {{finding.ruleName}}</li>
+                            <li><b>Last Run Date:</b> {{finding.lastRunDate}}</li>
+                            <li><b>Failure Detail:</b> {{finding.details}}</li>
                         </template>
                     </ul>
+                </div>
+                    
                 </td>
+                <td>{{result.lastModifiedUser}}</td>
+                <td>{{result.lastModified}}</td>
             </tr>
         </table>
-        <h1>
-            Hey this is id: {{results}}
-        
-        </h1>
 
 
-        <iron-ajax id="passAjax" url="http://localhost:11000/ui/audits/summaries?status=QUESTIONABLE&type=SITE" method="GET" headers='{"Content-Type": "application/json"}' handle-as="json" on-response="onMarkPassedComplete" debounce-duration="300">
+        <iron-ajax id="passAjax" url="http://localhost:11000/ui/audits/details/{{auditId}}" debounce-duration="300" on-response="handleResult">
         </iron-ajax>
 
     </template>
@@ -54,17 +106,9 @@
                 this.$.datatable.deselectAll();
             },
 
-            onMarkPassedComplete: function(data) {
-                var results = this.$.passAjax.lastResponse;
-                this.results = results[0];
-                console.log(results);
-                //                results.forEach(function(result) {
-                //                    if (!result.result) {
-                //                        alert(result.msg);
-                //                    }
-                //                });
-                //                //Refresh the datasource in table again
-                //                this.$.datatableCard.retrieveVisibleData();
+            handleResult: function(data) {
+                var result = this.$.passAjax.lastResponse;
+                this.result = result;
             },
 
             markAsPassed: function(event) {
