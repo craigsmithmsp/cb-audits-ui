@@ -1,7 +1,12 @@
 package org.caringbridge.ui.audits.rep;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.caringbridge.ui.audits.model.Audit;
+import org.caringbridge.ui.audits.model.Finding;
+import org.caringbridge.ui.audits.model.Profile;
+import org.caringbridge.ui.audits.model.Site;
 import org.caringbridge.ui.audits.model.Audit.Status;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -10,9 +15,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonInclude(Include.NON_NULL)
 public class AuditSummaryRepresentation {
-	
-        private String auditId;
-        private String profileName;
+	private String auditId;
+	private String profileName;
 	private String profileEmail;
 	private int siteId;
 	private String siteName;
@@ -20,6 +24,34 @@ public class AuditSummaryRepresentation {
 	private String lastModifiedUser;
 	private List<FindingRepresentation> findings;
 	
+	public static AuditSummaryRepresentation fromAudit(Audit audit) {
+		AuditSummaryRepresentation summary = new AuditSummaryRepresentation();
+		summary.setAuditId(audit.getAuditId());
+		summary.setSiteId(Integer.valueOf(audit.getTypeId()));
+		summary.setStatus(audit.getStatus());
+		summary.setLastModifiedUser(audit.getLastModifiedUser());
+		
+		//Add findings
+		List<FindingRepresentation> findingReps = new ArrayList<FindingRepresentation>();
+		for (Finding f : audit.getFindings()) {
+			FindingRepresentation fr = new FindingRepresentation();
+			fr.setDetails(f.getDetails());
+			fr.setLastRunDate(f.getLastRunDate());
+			fr.setRuleName(f.getRuleName());
+			fr.setStatus(f.getStatus());
+			findingReps.add(fr);
+		}
+		summary.setFindings(findingReps);
+		return summary;
+	}
+	
+	// Getters and Setters
+	public String getAuditId() {
+		return auditId;
+	}
+	public void setAuditId(String auditId) {
+		this.auditId = auditId;
+	}
 	public String getProfileName() {
 		return profileName;
 	}
@@ -62,18 +94,5 @@ public class AuditSummaryRepresentation {
 	public void setFindings(List<FindingRepresentation> findings) {
 		this.findings = findings;
 	}
-    /**
-     * @return the auditId
-     */
-    public String getAuditId() {
-        return auditId;
-    }
-    /**
-     * @param auditId the auditId to set
-     */
-    public void setAuditId(String auditId) {
-        this.auditId = auditId;
-    }
-	
 }
 

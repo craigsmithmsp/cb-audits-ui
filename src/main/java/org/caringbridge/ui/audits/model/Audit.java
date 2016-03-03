@@ -1,6 +1,6 @@
 package org.caringbridge.ui.audits.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 
@@ -11,7 +11,8 @@ public class Audit {
     private Audit.Type type;
     private String typeId;
     private Audit.Status status;
-    private Date lastModified;
+    private LocalDateTime createdAt;
+    private LocalDateTime lastModified;
     private String lastModifiedUser;
     private String details;
     private Set<Finding> findings;
@@ -48,12 +49,20 @@ public class Audit {
         this.status = status;
     }
 
-    public Date getLastModified() {
+    public LocalDateTime getLastModified() {
         return lastModified;
     }
     
 
-    public void setLastModified(Date lastModified) {
+    public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public void setLastModified(LocalDateTime lastModified) {
         this.lastModified = lastModified;
     }
     

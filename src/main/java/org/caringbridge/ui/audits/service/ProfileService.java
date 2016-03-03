@@ -17,7 +17,7 @@ public class ProfileService {
 	private RestTemplate restTemplate = new RestTemplate();
     @Value("${app.sub-services.profiles}")
     private String profilesHost;
-
+    
     private static final String GET_PROFILE = "%s/profiles/%s";
     
     public Profile getProfile(int profileId) {

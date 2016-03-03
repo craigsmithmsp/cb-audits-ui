@@ -103,8 +103,14 @@
             },
 
             markAsFailed: function() {
-                var selectedItems = this.$.datatable.selectedItems;
-                this.$.datatable.deselectAll();
+            	var ids = this.getSelectedIds(this);
+            	request = {}
+            	request['auditIds'] = ids;
+            	request['status'] = 'FAILED';
+				var reqBody = JSON.stringify(request);
+				console.log('Sending upate request as: '+reqBody);
+				this.$.updateStatusAjax.body = reqBody;
+				this.$.updateStatusAjax.generateRequest();
             },
 
             showInfo: function() {
@@ -120,6 +126,7 @@
 
                 console.log(auditId);
             },
+
             onMarkPassedComplete: function(data) {
                 var results = this.$.passAjax.lastResponse;
                 results.forEach(function(result) {
@@ -147,6 +154,33 @@
                 this.$.passAjax.body = reqBody;
                 this.$.passAjax.generateRequest();
                 this.refreshTable();
+
+            onMarkValidComplete: function(data){
+            	var results = this.$.updateStatusAjax.lastResponse;
+            	results.forEach(function(result){
+            		if (!result.result){
+            			alert(result.msg);
+            		}
+            	});
+            	//Refresh the datasource in table again
+            	this.$.datatableCard.retrieveVisibleData();
+            	this.$.datatableCard.deselectAll();
+            }
+            ,
+            getSelectedIds: function(table){
+            	var ids = table.$.datatableCard.selectedIds
+            	console.log('selected ids from questionable-table : '+ids);
+            	return ids;
+            },
+            markAsValid: function(event){
+            	var ids = this.getSelectedIds(this);
+            	request = {}
+            	request['auditIds'] = ids;
+            	request['status'] = 'PASSED';
+				var reqBody = JSON.stringify(request);
+				console.log('Sending upate request as: '+reqBody);
+				this.$.updateStatusAjax.body = reqBody;
+				this.$.updateStatusAjax.generateRequest();
             },
             properties: {
                 dataSource: {

@@ -37,34 +37,25 @@ public class AuditSummaryService {
 		}
 		List<AuditSummaryRepresentation> summaries = new ArrayList<AuditSummaryRepresentation>();
 		for (Audit audit: audits) {
-			AuditSummaryRepresentation summary = new AuditSummaryRepresentation();
-			summary.setSiteId(Integer.valueOf(audit.getTypeId()));
-			summary.setAuditId(audit.getAuditId());
-			// Add site details
-			Site site = siteSvc.getSiteById(Integer.valueOf(audit.getTypeId()));
-			summary.setSiteName(site.getName());
-			summary.setStatus(audit.getStatus());
-			summary.setLastModifiedUser(audit.getLastModifiedUser());
-			
-			//Add findings
-			List<FindingRepresentation> findingReps = new ArrayList<FindingRepresentation>();
-			for (Finding f : audit.getFindings()) {
-				FindingRepresentation fr = new FindingRepresentation();
-				fr.setDetails(f.getDetails());
-				fr.setLastRunDate(f.getLastRunDate());
-				fr.setRuleName(f.getRuleName());
-				fr.setStatus(f.getStatus());
-				findingReps.add(fr);
-			}
-			summary.setFindings(findingReps);
-			
-			// Add profile details
-			Profile profile = profileSvc.getProfile(site.getPrimaryOrganizerId());
-			summary.setProfileEmail(profile.getEmail().getAddress());
-			summaries.add(summary);
+			summaries.add(fromAudit(audit));
 		}
 		return summaries;
 	}
+	
+	private AuditSummaryRepresentation fromAudit(Audit audit) {
+		AuditSummaryRepresentation summary = AuditSummaryRepresentation.fromAudit(audit);
+		
+		// Add site details
+		Site site = siteSvc.getSiteById(Integer.valueOf(audit.getTypeId()));
+		summary.setSiteName(site.getName());
+		
+		// Add profile details
+		Profile profile = profileSvc.getProfile(site.getPrimaryOrganizerId());
+		summary.setProfileEmail(profile.getEmail().getAddress());
+		
+		return summary;
+	}
+	
 
     /**
      * Updates the status of one Audit object to the specified status by using 
