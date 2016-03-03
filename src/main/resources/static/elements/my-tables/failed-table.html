@@ -4,7 +4,7 @@
 <link rel="import" href="../../bower_components/paper-datatable/paper-datatable-card.html">
 
 
-<dom-module id="questionable-table">
+<dom-module id="failed-table">
     <template>
         <style>
             ul {
@@ -14,32 +14,30 @@
             li {
                 list-style-type: square;
             }
-            
 
         </style>
 
-        <paper-datatable-card id="datatableCard" header="Questionable Sites" data-source="{{dataSource}}" progress id-property="siteId">
+        <paper-datatable-card id="datatableCard" header="Failed Sites" data-source="{{dataSource}}" progress id-property="siteId">
             <div toolbar-main>
                 <paper-icon-button icon="refresh" on-tap="refreshTable"></paper-icon-button>
-                <paper-tooltip offset="0">Refresh</paper-tooltip>
+				<paper-tooltip offset="0">Refresh</paper-tooltip>
+            
             </div>
             <div toolbar-select-single>
                 <paper-icon-button icon="info" on-tap="showInfo"></paper-icon-button>
-                <paper-tooltip offset="0">Show Detail</paper-tooltip>
+				<paper-tooltip offset="0">Show Detail</paper-tooltip>                
             </div>
             <div toolbar-select>
-                <paper-icon-button id="markAsPassed" icon="thumb-up" on-tap="markAsPassed"></paper-icon-button>
-                <paper-icon-button id="markAsFailed" icon="thumb-down" on-tap="markAsFailed"></paper-icon-button>
-                <paper-tooltip offset="0" for="markAsPassed">Mark As Passed</paper-tooltip>
-                <paper-tooltip offset="0" for="markAsFailed" fitToVisibleBounds="false">Mark As Failed</paper-tooltip>
+                <paper-icon-button icon="delete" on-tap="deactivate"></paper-icon-button>
+                <paper-tooltip offset="0">Deactivate</paper-tooltip>
             </div>
             <paper-datatable id="datatable" selectable multi-selection>
 
-                <paper-datatable-column id="nameColumn" header="Profile Name" property="profileName" style="min-width: 200px;" sortable>
+                <paper-datatable-column id="nameColumn" header="Profile Name" property="profileName" style="min-width: 130px;" sortable>
                 </paper-datatable-column>
-                <paper-datatable-column header="Profile E-mail" property="profileEmail" style="min-width: 200px;" sortable></paper-datatable-column>
+                <paper-datatable-column header="Profile E-mail" property="profileEmail" style="min-width: 130px;" sortable></paper-datatable-column>
                 <paper-datatable-column header="Site Name" property="siteName" style="min-width: 130px;" sortable></paper-datatable-column>
-                <paper-datatable-column header="Reasons" property="findings" style="min-width: 150px;" sortable>
+                <paper-datatable-column header="Reasons" property="findings" style="min-width: 130px;" sortable>
                     <template>
                         <ul>
                             <template is="dom-repeat" items="[[value]]" as="finding" filter="isFailed">
@@ -48,12 +46,13 @@
                         </template>
                     </template>
                 </paper-datatable-column>
+                <paper-datatable-column header="Confirmed By" property="siteName" style="min-width: 130px;" sortable></paper-datatable-column>
             </paper-datatable>
         </paper-datatable-card>
     </template>
     <script>
         Polymer({
-            is: "questionable-table",
+            is: "failed-table",
             detached: function() {
 
             },
@@ -68,7 +67,7 @@
 
             },
 
-            markAsPassed: function() {
+            markAsValid: function() {
                 var selectedItems = this.$.datatable.selectedItems;
                 this.$.datatable.deselectAll();
             },
@@ -80,6 +79,7 @@
 
             showInfo: function() {
                 var siteId = this.$.datatable.selectedItems[0].siteId;
+                console.log(siteId);
             },
 
             properties: {
@@ -102,7 +102,7 @@
                                     };
                                     httpRequest
                                         .open('GET',
-                                            ' http://localhost:11000/ui/audits/summaries/?status=QUESTIONABLE&type=SITE');
+                                            ' http://localhost:11000/ui/audits/summaries/?status=FAILED&type=SITE');
                                     httpRequest.send();
                                 });
                         },
