@@ -82,9 +82,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <span>Questionable</span>
                     </a>
 
-                    <a data-route="users" href="{{baseUrl}}valid">
+                    <a data-route="users" href="{{baseUrl}}passed">
                         <iron-icon icon="thumb-up"></iron-icon>
-                        <span>Valid</span>
+                        <span>Passed</span>
                     </a>
 
                     <a data-route="contact" href="{{baseUrl}}failed">
@@ -126,22 +126,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                         </section>
 
-                        <section data-route="valid">
+                        <section data-route="passed">
                             <paper-material elevation="1">
-                                <h2 class="page-title">Valid Sites</h2>
+                                <passed-table></passed-table>
                             </paper-material>
                         </section>
 
+                        <!--
                         <section data-route="user-info">
                             <paper-material elevation="1">
                                 <h2 class="page-title">User: {{params.name}}</h2>
                                 <div>This is {{params.name}}'s section</div>
                             </paper-material>
                         </section>
+-->
 
                         <section data-route="failed">
                             <paper-material elevation="1">
-                                <h2 class="page-title">Failed Sites</h2>
+                                <failed-table></failed-table>
                             </paper-material>
                         </section>
 
