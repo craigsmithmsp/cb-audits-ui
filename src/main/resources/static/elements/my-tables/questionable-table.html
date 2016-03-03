@@ -53,19 +53,12 @@
             </paper-datatable>
         </paper-datatable-card>
 			
-		<iron-ajax id="passAjax"
+		<iron-ajax id="updateStatusAjax"
 		    url="http://localhost:11000/ui/audits/summaries/update"
 		    method="POST" contentType="application/json"
 		    headers='{"Content-Type": "application/json"}'
 		    handle-as="json"
 		    on-response="onMarkValidComplete"
-		    debounce-duration="300"></iron-ajax>
-		
-		<iron-ajax id="getQuestionableItemsAjax"
-		    url="http://localhost:11000/ui/audits/summaries/?status=QUESTIONABLE&type=SITE"
-		    method="GET" contentType="application/json"
-		    headers='{"Content-Type": "application/json"}'
-		    handle-as="json"
 		    debounce-duration="300"></iron-ajax>
 		
     </template>
@@ -98,8 +91,14 @@
             },
 
             markAsFailed: function() {
-                var selectedItems = this.$.datatable.selectedItems;
-                this.$.datatable.deselectAll();
+            	var ids = this.getSelectedIds(this);
+            	request = {}
+            	request['auditIds'] = ids;
+            	request['status'] = 'FAILED';
+				var reqBody = JSON.stringify(request);
+				console.log('Sending upate request as: '+reqBody);
+				this.$.updateStatusAjax.body = reqBody;
+				this.$.updateStatusAjax.generateRequest();
             },
             
             showInfo: function() {
@@ -107,7 +106,7 @@
                 console.log(siteId);
             },
             onMarkValidComplete: function(data){
-            	var results = this.$.passAjax.lastResponse;
+            	var results = this.$.updateStatusAjax.lastResponse;
             	results.forEach(function(result){
             		if (!result.result){
             			alert(result.msg);
@@ -115,6 +114,7 @@
             	});
             	//Refresh the datasource in table again
             	this.$.datatableCard.retrieveVisibleData();
+            	this.$.datatableCard.deselectAll();
             }
             ,
             getSelectedIds: function(table){
@@ -129,9 +129,8 @@
             	request['status'] = 'PASSED';
 				var reqBody = JSON.stringify(request);
 				console.log('Sending upate request as: '+reqBody);
-				this.$.passAjax.body = reqBody;
-				this.$.passAjax.generateRequest();
-				this.refreshTable();
+				this.$.updateStatusAjax.body = reqBody;
+				this.$.updateStatusAjax.generateRequest();
             },
             properties: {
                 dataSource: {
