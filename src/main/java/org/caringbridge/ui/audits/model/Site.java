@@ -1,5 +1,8 @@
 package org.caringbridge.ui.audits.model;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 
 public class Site {
@@ -8,6 +11,8 @@ public class Site {
 	private String isDeleted;
 	private String name;
 	private Integer primaryOrganizerId;
+	private LocalDateTime createdAt;
+	private Date updatedAt;
 	
 	// Getters and Setters
 	public int get_id() {
@@ -33,5 +38,17 @@ public class Site {
 	}
 	public void setPrimaryOrganizerId(Integer primaryOrganizerId) {
 		this.primaryOrganizerId = primaryOrganizerId;
+	}
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 }

@@ -23,6 +23,7 @@ public class AuditService {
     @Value("${app.sub-services.audits}")
     private String auditsHost;
 	
+	private static final String GET_AUDIT = "%s/audits/%s";
 	private static final String GET_AUDITS_BY_STATUS_AND_TYPE = "%s/audits?status=%s&type=%s";
 	
 	public List<Audit> getAuditsByStatusAndType(Status status, Type type) {
@@ -40,6 +41,22 @@ public class AuditService {
 		}
 		Audit[] audits = responseEntity.getBody();
 		return Arrays.asList(audits);
+	}
+
+	public Audit getAudit(String id) {
+		URI url;
+		String urlString = String.format(GET_AUDIT, auditsHost, id);
+		try {
+			url = new URI(urlString);
+		} catch (URISyntaxException e) {
+			throw new ConfigurationException("Unable to construct URI from " + urlString);
+		}
+		ResponseEntity<Audit> responseEntity = restTemplate.getForEntity(url, Audit.class);
+		HttpStatus statusCode = responseEntity.getStatusCode();
+		if (!statusCode.is2xxSuccessful()) {
+			throw new DownstreamException(String.format("Received error %d from call to audit service endpoint %s.", statusCode.value(), url));
+		}
+		return responseEntity.getBody();
 	}
 	
 }
