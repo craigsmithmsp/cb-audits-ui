@@ -32,11 +32,10 @@
                 <paper-tooltip offset="0">Deactivate</paper-tooltip>
             </div>
             <paper-datatable id="datatable" selectable multi-selection>
-
+                <paper-datatable-column header="Site Name" property="siteName" style="min-width: 130px;" sortable></paper-datatable-column>
                 <paper-datatable-column id="nameColumn" header="Profile Name" property="profileName" style="min-width: 130px;" sortable>
                 </paper-datatable-column>
                 <paper-datatable-column header="Profile E-mail" property="profileEmail" style="min-width: 130px;" sortable></paper-datatable-column>
-                <paper-datatable-column header="Site Name" property="siteName" style="min-width: 130px;" sortable></paper-datatable-column>
                 <paper-datatable-column header="Reasons" property="findings" style="min-width: 130px;" sortable>
                     <template>
                         <ul>
@@ -103,6 +102,7 @@
                                     httpRequest
                                         .open('GET',
                                             ' http://localhost:11000/ui/audits/summaries/?status=FAILED&type=SITE');
+                                    httpRequest.setRequestHeader("Content-type", "application/json");
                                     httpRequest.send();
                                 });
                         },

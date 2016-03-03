@@ -2,7 +2,7 @@
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../../bower_components/paper-datatable/paper-datatable.html">
 <link rel="import" href="../../bower_components/paper-datatable/paper-datatable-card.html">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<link rel="import" href="quetionabledetail-table.html">
 
 
 <dom-module id="questionable-table">
@@ -15,7 +15,19 @@
             li {
                 list-style-type: square;
             }
+            
+            #detailInfo{
+            position:static;
+            	width:500px;
+            	height:200px;
+            }
+            
+
         </style>
+        
+        <paper-material id = "detailInfo" style="display:none">
+        
+        </paper-material>
         
 		<paper-datatable-card id="datatableCard" header="Questionable Sites" data-source="{{dataSource}}" progress id-property="auditId">
             <div toolbar-main>
@@ -33,12 +45,11 @@
                 <paper-tooltip offset="0" for="markAsFailed" fitToVisibleBounds="false">Mark As Failed</paper-tooltip>
             </div>
             <paper-datatable id="datatable" selectable multi-selection>
+				<paper-datatable-column header="Site Name" property="siteName" style="min-width: 130px;" sortable></paper-datatable-column>
 
 				<paper-datatable-column id="nameColumn" header="Profile Name" property="profileName" style="min-width: 200px;" sortable></paper-datatable-column>
 
                 <paper-datatable-column header="Profile E-mail" property="profileEmail" style="min-width: 200px;" sortable></paper-datatable-column>
-
-                <paper-datatable-column header="Site Name" property="siteName" style="min-width: 130px;" sortable></paper-datatable-column>
 
                 <paper-datatable-column header="Reasons" property="findings" style="min-width: 150px;" sortable>
                     <template>
@@ -58,7 +69,7 @@
 		    method="POST" contentType="application/json"
 		    headers='{"Content-Type": "application/json"}'
 		    handle-as="json"
-		    on-response="onMarkValidComplete"
+		    on-response="onMarkPassedComplete"
 		    debounce-duration="300"></iron-ajax>
 		
 		<iron-ajax id="getQuestionableItemsAjax"
@@ -94,6 +105,7 @@
             },
 
             refreshTable: function() {
+                this.$.datatable.deselectAll();
                 this.$.datatableCard.retrieveVisibleData();
             },
 
@@ -103,10 +115,19 @@
             },
             
             showInfo: function() {
-                var siteId = this.$.datatable.selectedItems[0].siteId;
-                console.log(siteId);
+                var auditId = this.$.datatable.selectedItems[0].auditId;
+                
+                var detailTable = document.createElement("questionabledetail-table");
+                detailTable.setAttribute("audit-id", auditId);
+                
+                var detailInfo = document.getElementById("detailInfo");
+                detailInfo.appendChild(detailTable);
+                detailInfo.setAttribute("style", "display:block");
+                console.log(detailTable);
+                
+                console.log(auditId);
             },
-            onMarkValidComplete: function(data){
+            onMarkPassedComplete: function(data){
             	var results = this.$.passAjax.lastResponse;
             	results.forEach(function(result){
             		if (!result.result){
@@ -122,8 +143,10 @@
             	console.log('selected ids from questionable-table : '+ids);
             	return ids;
             },
-            markAsValid: function(event){
+            
+            markAsPassed: function(event){
             	var ids = this.getSelectedIds(this);
+                console.log(ids);
             	request = {}
             	request['auditIds'] = ids;
             	request['status'] = 'PASSED';
@@ -144,9 +167,6 @@
                                     if (httpRequest.readyState === XMLHttpRequest.DONE) {
                                         if (httpRequest.status === 200) {
                                             var result = JSON.parse(httpRequest.responseText);
-                                            //                                            var users = result['results'].map(function(resultItem) {
-                                            //                                                return resultItem.user;
-                                            //                                            });
                                             resolve(result);
                                         }
                                     }

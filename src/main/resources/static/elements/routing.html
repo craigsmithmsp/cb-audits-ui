@@ -49,9 +49,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             app.route = 'questionable';
         })
 
+        page('/questionable/:auditId', function(data) {
+            console.log(data);
+            console.log(data.params.auditId);
+            app.route = 'questionable-info';
+//            app.questionableParams = data.params;
+        })
+
         page('/passed', function() {
             app.route = 'passed';
         });
+
+
 
         page('/users/:name', function(data) {
             app.route = 'user-info';
@@ -67,7 +76,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         page('*', function() {
             app.$.toast.text = 'Can\'t find: ' + window.location.href + '. Redirected you to Home Page';
             app.$.toast.show();
-            page.redirect(app.baseUrl);
+            page.redirect(app.baseUrl+'questionable');
         });
 
         // add #! before urls

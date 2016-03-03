@@ -1,0 +1,61 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+
+
+<dom-module id="questionabledetail-table">
+    <template>
+<h1>Hey this is id: {{auditId}}</h1>
+
+        
+        <iron-ajax id="passAjax" url="http://localhost:11000/ui/audits/summaries/update" method="POST" contentType="application/json" headers='{"Content-Type": "application/json"}' handle-as="json" on-response="onMarkPassedComplete" debounce-duration="300"></iron-ajax>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: "questionabledetail-table",
+            attached: function() {
+                console.log("detail-table:" + this.auditId)
+            },
+
+            isFailed: function(item) {
+                return item.status == 'FAILED';
+            },
+
+            markAsFailed: function() {
+                var selectedItems = this.$.datatable.selectedItems;
+                this.$.datatable.deselectAll();
+            },
+
+            onMarkPassedComplete: function(data) {
+                var results = this.$.passAjax.lastResponse;
+                results.forEach(function(result) {
+                    if (!result.result) {
+                        alert(result.msg);
+                    }
+                });
+                //Refresh the datasource in table again
+                this.$.datatableCard.retrieveVisibleData();
+            },
+
+            markAsPassed: function(event) {
+                var ids = this.getSelectedIds(this);
+                console.log(ids);
+                request = {}
+                request['auditIds'] = ids;
+                request['status'] = 'PASSED';
+                var reqBody = JSON.stringify(request);
+                console.log('Sending upate request as: ' + reqBody);
+                this.$.passAjax.body = reqBody;
+                this.$.passAjax.generateRequest();
+                this.refreshTable();
+            },
+
+            properties: {
+                auditId: String
+            }
+        });
+
+    </script>
+</dom-module>
