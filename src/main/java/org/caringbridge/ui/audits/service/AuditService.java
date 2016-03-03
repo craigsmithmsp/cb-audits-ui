@@ -25,10 +25,12 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class AuditService {
-//	@Autowired
+	
+        //@Autowired
 	private RestTemplate restTemplate = new RestTemplate();
-    @Value("${app.sub-services.audits}")
-    private String auditsHost;
+    
+	@Value("${app.sub-services.audits}")
+        private String auditsHost;
 	
     private static final Logger log = LoggerFactory.getLogger(AuditService.class);
 
@@ -48,13 +50,7 @@ public class AuditService {
 	}
 
 	public Audit getAudit(String id) {
-		URI url;
-		String urlString = String.format(GET_AUDIT, auditsHost, id);
-		try {
-			url = new URI(urlString);
-		} catch (URISyntaxException e) {
-			throw new ConfigurationException("Unable to construct URI from " + urlString);
-		}
+		URI url = buildURI(String.format(GET_AUDIT, auditsHost, id));
 		ResponseEntity<Audit> responseEntity = restTemplate.getForEntity(url, Audit.class);
 		HttpStatus statusCode = responseEntity.getStatusCode();
 		if (!statusCode.is2xxSuccessful()) {

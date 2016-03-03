@@ -1,44 +1,33 @@
 package org.caringbridge.ui.audits.controllers;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import org.caringbridge.ui.audits.CbApplication;
 import org.caringbridge.ui.audits.model.Audit;
-import org.caringbridge.ui.audits.service.AuditService;
 import org.caringbridge.ui.audits.rep.AuditsUpdateCallResponse;
+import org.caringbridge.ui.audits.service.AuditService;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = CbApplication.class)
-@WebAppConfiguration
-public class AuditSummaryControllerTest {
+public class AuditSummaryControllerTest extends BaseControllerTest {
     
     @Autowired
     AuditSummaryController auditSummaryCtl;
     
     @Mock
     AuditService mockAuditService;
-    
-    MockMvc mockMvc;
     
     @Before
     public void init(){
@@ -54,8 +43,6 @@ public class AuditSummaryControllerTest {
         });
         
         auditSummaryCtl.getAuditSummarySvc().setAuditSvc(mockAuditService);
-        
-        mockMvc = MockMvcBuilders.standaloneSetup(auditSummaryCtl).build();
         
     }
     
