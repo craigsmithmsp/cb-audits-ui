@@ -68,19 +68,18 @@ spring:
   profiles:
     active: dev
 
+server:
+  port: 11001
+  
 ---
 spring:
   profiles: dev
-
-server:
-  port: 11000
 
 ---
 spring:
   profiles: qa
 
 server:
-  port: 11000
   undertow:
     accesslog:
       dir: /var/log/microservices/${app.name}

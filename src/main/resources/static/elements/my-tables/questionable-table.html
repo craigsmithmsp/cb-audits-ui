@@ -18,7 +18,7 @@
             
             #detailInfo {
                 position: static;
-                width: 80%;
+                width: 500px;
                 height: 200px;
                 overflow-x:scroll;
             }
@@ -37,7 +37,7 @@
         <paper-datatable-card id="datatableCard" header="Questionable Sites" data-source="{{dataSource}}" progress id-property="auditId">
             <div toolbar-main>
                 <paper-icon-button icon="refresh" on-tap="refreshTable"></paper-icon-button>
-                <paper-tooltip offset="0">Refresh</paper-tooltip>
+                <paper-tooltip offset="0">Refresh{{baseUrl}}</paper-tooltip>
             </div>
             <div toolbar-select-single>
                 <paper-icon-button icon="info" on-tap="showInfo"></paper-icon-button>
@@ -70,7 +70,7 @@
         </paper-datatable-card>
 			
 		<iron-ajax id="updateStatusAjax"
-		    url="http://localhost:11000/ui/audits/summaries/update"
+		    url="{{baseUrl}}/ui/audits/summaries/update"
 		    method="POST" contentType="application/json"
 		    headers='{"Content-Type": "application/json"}'
 		    handle-as="json"
@@ -93,6 +93,9 @@
                 this.isFailed = function(item) {
                     return item.status == 'FAILED';
                 };
+                
+                this.baseUrl = location.protocol + "//" + location.hostname + 
+                	(location.port && ":" + location.port);
 
             },
             detached: function() {
@@ -166,8 +169,8 @@
                 request['status'] = 'PASSED';
                 var reqBody = JSON.stringify(request);
                 console.log('Sending upate request as: ' + reqBody);
-                this.$.passAjax.body = reqBody;
-                this.$.passAjax.generateRequest();
+                this.$.updateStatusAjax.body = reqBody;
+                this.$.updateStatusAjax.generateRequest();
                 this.refreshTable();
                 this.closeInfo();
             },
@@ -214,7 +217,9 @@
                                         }
                                     }
                                 };
-                                httpRequest.open('GET', 'http://localhost:11000/ui/audits/summaries/?status=QUESTIONABLE&type=SITE');
+                                baseUrl = location.protocol + "//" + location.hostname + 
+                            	(location.port && ":" + location.port)
+                                httpRequest.open('GET', baseUrl+'/ui/audits/summaries/?status=QUESTIONABLE&type=SITE');
                                 httpRequest.setRequestHeader("Content-type", "application/json");
                                 httpRequest.send();
                             });
@@ -226,7 +231,10 @@
                         },
                         length: 10
                     }
-                }
+                },
+               	baseUrl: {
+               		type: String	
+               	}
             }
         });
 
