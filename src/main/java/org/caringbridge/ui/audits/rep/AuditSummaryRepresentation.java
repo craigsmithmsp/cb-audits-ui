@@ -10,7 +10,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonInclude(Include.NON_NULL)
 public class AuditSummaryRepresentation {
-	private String profileName;
+	
+        private String auditId;
+        private String profileName;
 	private String profileEmail;
 	private int siteId;
 	private String siteName;
@@ -60,6 +62,18 @@ public class AuditSummaryRepresentation {
 	public void setFindings(List<FindingRepresentation> findings) {
 		this.findings = findings;
 	}
+    /**
+     * @return the auditId
+     */
+    public String getAuditId() {
+        return auditId;
+    }
+    /**
+     * @param auditId the auditId to set
+     */
+    public void setAuditId(String auditId) {
+        this.auditId = auditId;
+    }
 	
 }
 
