@@ -19,10 +19,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = CbApplication.class)
-@WebAppConfiguration
-public class PingControllerTest {
+
+public class PingControllerTest extends BaseControllerTest {
 
 	private MockMvc mockMvc;
 	
