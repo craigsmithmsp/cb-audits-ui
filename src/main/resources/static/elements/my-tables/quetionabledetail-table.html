@@ -5,10 +5,35 @@
 
 <dom-module id="questionabledetail-table">
     <template>
-<h1>Hey this is id: {{auditId}}</h1>
+        <table>
+            <tr>
+                <th>Site Name</th>
+                <th>Profile Name</th>
+                <th>Profile Email</th>
+                <th>Findings</th>
+            </tr>
 
+            <tr>
+                <td>{{results.siteName}}</td>
+                <td>{{results.profileName}}</td>
+                <td>{{results.profileEmail}}</td>
+                <td>
+                    <ul>
+                        <template is="dom-repeat" items="{{results.findings}}" as="finding">
+                            <li>{{finding.details}}</li>
+                        </template>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <h1>
+            Hey this is id: {{results}}
         
-        <iron-ajax id="passAjax" url="http://localhost:11000/ui/audits/summaries/update" method="POST" contentType="application/json" headers='{"Content-Type": "application/json"}' handle-as="json" on-response="onMarkPassedComplete" debounce-duration="300"></iron-ajax>
+        </h1>
+
+
+        <iron-ajax id="passAjax" url="http://localhost:11000/ui/audits/summaries?status=QUESTIONABLE&type=SITE" method="GET" headers='{"Content-Type": "application/json"}' handle-as="json" on-response="onMarkPassedComplete" debounce-duration="300">
+        </iron-ajax>
 
     </template>
 
@@ -16,7 +41,8 @@
         Polymer({
             is: "questionabledetail-table",
             attached: function() {
-                console.log("detail-table:" + this.auditId)
+                this.$.passAjax.generateRequest();
+
             },
 
             isFailed: function(item) {
@@ -30,13 +56,15 @@
 
             onMarkPassedComplete: function(data) {
                 var results = this.$.passAjax.lastResponse;
-                results.forEach(function(result) {
-                    if (!result.result) {
-                        alert(result.msg);
-                    }
-                });
-                //Refresh the datasource in table again
-                this.$.datatableCard.retrieveVisibleData();
+                this.results = results[0];
+                console.log(results);
+                //                results.forEach(function(result) {
+                //                    if (!result.result) {
+                //                        alert(result.msg);
+                //                    }
+                //                });
+                //                //Refresh the datasource in table again
+                //                this.$.datatableCard.retrieveVisibleData();
             },
 
             markAsPassed: function(event) {
