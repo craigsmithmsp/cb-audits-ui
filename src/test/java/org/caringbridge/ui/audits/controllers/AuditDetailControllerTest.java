@@ -63,7 +63,7 @@ public class AuditDetailControllerTest extends BaseControllerTest {
             rep.setProfileName("test");
             rep.setSiblingSiteCount(1);
             rep.setSiteCreatedAt(LocalDateTime.now());
-            rep.setSiteId(1);
+            rep.setSiteId("1");
             rep.setSiteName("site1");
             rep.setStatus(Audit.Status.QUESTIONABLE);
             return rep;

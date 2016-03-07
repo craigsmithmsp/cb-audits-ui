@@ -4,21 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.caringbridge.ui.audits.model.Audit;
-import org.caringbridge.ui.audits.model.Finding;
-import org.caringbridge.ui.audits.model.Profile;
-import org.caringbridge.ui.audits.model.Site;
 import org.caringbridge.ui.audits.model.Audit.Status;
+import org.caringbridge.ui.audits.model.Finding;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonInclude(Include.NON_NULL)
 public class AuditSummaryRepresentation {
 	private String auditId;
 	private String profileName;
 	private String profileEmail;
-	private int siteId;
+	private String siteId;
 	private String siteName;
 	private Status status;
 	private String lastModifiedUser;
@@ -27,7 +24,7 @@ public class AuditSummaryRepresentation {
 	public static AuditSummaryRepresentation fromAudit(Audit audit) {
 		AuditSummaryRepresentation summary = new AuditSummaryRepresentation();
 		summary.setAuditId(audit.getAuditId());
-		summary.setSiteId(Integer.valueOf(audit.getTypeId()));
+		summary.setSiteId(audit.getTypeId());
 		summary.setStatus(audit.getStatus());
 		summary.setLastModifiedUser(audit.getLastModifiedUser());
 		
@@ -64,10 +61,10 @@ public class AuditSummaryRepresentation {
 	public void setProfileEmail(String profileEmail) {
 		this.profileEmail = profileEmail;
 	}
-	public int getSiteId() {
+	public String getSiteId() {
 		return siteId;
 	}
-	public void setSiteId(int siteId) {
+	public void setSiteId(String siteId) {
 		this.siteId = siteId;
 	}
 	public String getSiteName() {

@@ -33,7 +33,7 @@ public class AuditDetailService {
 		detail.setLastModified(audit.getLastModified());
 
 		// Add site details
-		Site site = siteSvc.getSiteById(Integer.valueOf(audit.getTypeId()));
+		Site site = siteSvc.getSiteById(audit.getTypeId());
 		detail.setSiteName(site.getName());
 		detail.setSiteCreatedAt(site.getCreatedAt());
 		

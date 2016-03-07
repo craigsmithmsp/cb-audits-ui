@@ -34,6 +34,19 @@
 			
         </paper-material>
 
+
+		<paper-dialog>
+		  <h2>Header</h2>
+		  <paper-dialog-scrollable>
+		    Lorem ipsum...
+		  </paper-dialog-scrollable>
+		  <div class="buttons">
+		    <paper-button dialog-dismiss>Cancel</paper-button>
+		    <paper-button dialog-confirm>Accept</paper-button>
+		  </div>
+		</paper-dialog>
+
+
         <paper-datatable-card id="datatableCard" header="Questionable Sites" data-source="{{dataSource}}" progress id-property="auditId">
             <div toolbar-main>
                 <paper-icon-button icon="refresh" on-tap="refreshTable"></paper-icon-button>
