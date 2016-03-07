@@ -9,6 +9,7 @@ public class Profile {
 	private int _id;
 	private Email email;
 	private LocalDateTime createdAt;
+	private Integer siteCount;
 	
 	public int get_id() {
 		return _id;
@@ -27,6 +28,12 @@ public class Profile {
 	}
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+	public Integer getSiteCount() {
+	    return siteCount;
+	}
+	public void setSiteCount(Integer siteCount) {
+	    this.siteCount = siteCount;
 	}
 
 	public class Email {

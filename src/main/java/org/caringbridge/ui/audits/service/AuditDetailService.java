@@ -41,7 +41,7 @@ public class AuditDetailService {
 		Profile profile = profileSvc.getProfile(site.getPrimaryOrganizerId());
 		detail.setProfileEmail(profile.getEmail().getAddress());
 		detail.setProfileCreatedAt(profile.getCreatedAt());
-		
+		detail.setSiblingSiteCount(profile.getSiteCount());
 		
 		return detail;
 	}
