@@ -46,7 +46,7 @@ public class AuditSummaryService {
 		AuditSummaryRepresentation summary = AuditSummaryRepresentation.fromAudit(audit);
 		
 		// Add site details
-		Site site = siteSvc.getSiteById(Integer.valueOf(audit.getTypeId()));
+		Site site = siteSvc.getSiteById(audit.getTypeId());
 		summary.setSiteName(site.getName());
 		
 		// Add profile details

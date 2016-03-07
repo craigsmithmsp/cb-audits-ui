@@ -20,7 +20,7 @@ public class SiteService {
 
 	private static final String GET_SITE = "%s/sites/%s";
 	
-	public Site getSiteById(int siteId) {
+	public Site getSiteById(String siteId) {
 		URI url;
 		String urlString = String.format(GET_SITE, sitesHost, siteId);
 		try {
