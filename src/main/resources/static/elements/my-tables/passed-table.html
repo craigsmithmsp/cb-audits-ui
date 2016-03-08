@@ -103,9 +103,11 @@
                                             }
                                         }
                                     };
+                                    baseUrl = location.protocol + "//" + location.hostname + 
+                                	(location.port && ":" + location.port)
                                     httpRequest
                                         .open('GET',
-                                            ' http://localhost:11000/ui/audits/summaries/?status=PASSED&type=SITE');
+                                            baseUrl+'/ui/audits/summaries/?status=PASSED&type=SITE');
                                     httpRequest.setRequestHeader("Content-type", "application/json");
                                     httpRequest.send();
                                 });
