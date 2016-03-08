@@ -1,106 +1,65 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
-
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
 
 
 <dom-module id="questionabledetail-table">
     <template>
-        <style>
-        	table {
-        	table-layout: fixed;
-        	}
-        	
-            table,th,td {
-                border: 1px solid black;
-                border-collapse: collapse;
-            }
-      
-            td {
-                height: 100px;
-                width: 100px;
-                text-align: center;
-                vertical-align:center;
-            }
-            
-            #findingsTd{
-            width: 50em;
-            }
-            
-            ul {
-                padding-left: 30px;
-            }
-            
-            li {
-                list-style-type: square;
-            }
-            
-            #findings {
-                overflow-y: scroll;
-                height:100%;
-            }
-
-        </style>
-
-
-        <table>
-            <tr>
-                <th>Site Name</th>
-                <th>Site ID</th>
-                <th>Site Created At</th>
-                <th>Profile Name</th>
-                <th>Profile Email</th>
-                <th>Profile Created At</th>
-                <th>Sibling Site Count</th>
-                <th>Findings</th>
-                <th>Last Modified User</th>
-                <th>Last Modified Date</th>
-
-
-            </tr>
-
-            <tr>
-                <td>{{result.siteName}}</td>
-                <td>{{result.siteId}}</td>
-                <td>{{result.siteCreatedAt}}</td>
-                <td>{{result.profileName}}</td>
-                <td>{{result.profileEmail}}</td>
-                <td>{{result.profileCreatedAt}}</td>
-                <td>{{result.siblingSiteCount}}</td>
-                <td id = "findingsTd">
-                <div id="findings">
-                <ul>
-                        <template is="dom-repeat" items="{{result.findings}}" as="finding" filter="isFailed">
-                            <li><b>Rule Name:</b> {{finding.ruleName}}</li>
-                            <li><b>Last Run Date:</b> {{finding.lastRunDate}}</li>
-                            <li><b>Failure Detail:</b> {{finding.details}}</li>
-                        </template>
-                    </ul>
-                </div>
-                    
-                </td>
-                <td>{{result.lastModifiedUser}}</td>
-                <td>{{result.lastModified}}</td>
-            </tr>
-        </table>
-
-
-        <iron-ajax id="passAjax" url="http://localhost:11000/ui/audits/details/{{auditId}}" debounce-duration="300" on-response="handleResult">
+		
+		<paper-dialog id="dialog" entry-animation="scale-up-animation" modal="true"
+              exit-animation="fade-out-animation">
+		  
+		  <div class="buttons">
+		  	<paper-icon-button icon="thumb-up" on-tap="markAsPassed"></paper-icon-button>
+		  	<paper-icon-button icon="thumb-down" on-tap="markAsPassed"></paper-icon-button>
+		  	<paper-icon-button icon="close" dialog-dismiss></paper-icon-button>
+		  </div>
+		  
+		  <paper-dialog-scrollable>
+		    
+			  <paper-item><b>Site Name:</b>&nbsp;{{result.siteName}}</paper-item>
+			  <paper-item><b>Site Id:</b>&nbsp;{{result.siteId}}</paper-item>
+			  <paper-item><b>Site Created At:</b>&nbsp;{{result.siteCreatedAt}}</paper-item>
+			  <paper-item><b>Profile Name:</b>&nbsp;{{result.profileName}}</paper-item>
+			  <paper-item><b>Profile Email:</b>&nbsp;{{result.profileEmail}}</paper-item>
+			  <paper-item><b>Profile Created At:</b>&nbsp;{{result.profileCreatedAt}}</paper-item>
+			  <paper-item><b>Sibling Site Count:</b>&nbsp;{{result.siblingSiteCount}}</paper-item>
+			  <paper-item><b>Last Modified User:</b>&nbsp;{{result.lastModifiedUser}}</paper-item>
+			  <paper-item><b>Last Modified:</b>&nbsp;{{result.lastModified}}</paper-item>
+			  
+			  <paper-item><b>Rule Results:</b></paper-item>
+			  
+			  <paper-datatable data="{{result.findings}}">
+			  	<paper-datatable-column header="Rule Name" property="ruleName"></paper-datatable-column>
+			  	<paper-datatable-column header="Last Run Date" property="lastRunDate"></paper-datatable-column>
+			  	<paper-datatable-column header="Failure Detail" property="details"></paper-datatable-column>
+			  </paper-datatable>
+			  
+		  </paper-dialog-scrollable>
+		</paper-dialog>
+		
+        <iron-ajax id="passAjax" url="http://localhost:11001/ui/audits/details/{{auditId}}" debounce-duration="300" on-response="handleResult">
         </iron-ajax>
 
-    </template>
+	</template>
 
     <script>
         Polymer({
             is: "questionabledetail-table",
-            attached: function() {
-                this.$.passAjax.generateRequest();
-
-            },
-
             isFailed: function(item) {
                 return item.status == 'FAILED';
             },
-
+			open: function(){
+				if (!this.auditId){
+					throw "Audit Id not set for this dialog";
+				}
+				console.log('Loading content for audit '+this.auditId);
+            	this.$.passAjax.generateRequest();
+				this.$.dialog.open();
+			},
             markAsFailed: function() {
                 var selectedItems = this.$.datatable.selectedItems;
                 this.$.datatable.deselectAll();
@@ -110,7 +69,6 @@
                 var result = this.$.passAjax.lastResponse;
                 this.result = result;
             },
-
             markAsPassed: function(event) {
                 var ids = this.getSelectedIds(this);
                 console.log(ids);
@@ -123,7 +81,9 @@
                 this.$.passAjax.generateRequest();
                 this.refreshTable();
             },
-
+			setAuditId(auditId){
+            	this.auditId = auditId;
+            },
             properties: {
                 auditId: String
             }
